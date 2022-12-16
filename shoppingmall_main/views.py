@@ -49,6 +49,7 @@ class ShoppingItemSearch(ShoppingItemList):
 
 
 def category_page(request,slug):
+
     if slug=='no_category':
         category ='미분류'
         ShoppingItemList = ShoppingItem.objects.filter(category=None)
@@ -59,6 +60,7 @@ def category_page(request,slug):
     return render(
         request,
         'shoppingmall_main/shoppingitem_list.html',{
+
             'category' :category,
             'shoppingitem_list' : ShoppingItemList,
             'categories': Category.objects.all(),
@@ -201,3 +203,47 @@ def delete_comment(request,pk):
         return redirect(shoppingitem.get_absolute_url())
     else:
         raise PermissionDenied
+
+def likes(request, pk):
+    if request.user.is_authenticated:
+        shoppingitem = get_object_or_404(ShoppingItem, pk=pk)
+
+        if shoppingitem.like_users.filter(pk=request.user.pk).exists():
+            shoppingitem.like_users.remove(request.user)
+        else:
+            shoppingitem.like_users.add(request.user)
+        return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    raise  redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+from django.shortcuts import render, redirect
+from django.views import View
+from django.http import JsonResponse
+import requests
+class KakaoSignInView(View):
+    def get(self, request):
+        app_key = 'f6a0540558be646680eecd611720c12b'
+        redirect_uri = 'http://localhost:8000/accounts/signin/kakao/callback'
+        kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
+
+        return redirect(
+            f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}'
+        )
+
+class KaKaoSignInCallBackView(View):
+    def get(self, request):
+        auth_code = request.GET.get('code')
+        kakao_token_api = 'https://kauth.kakao.com/oauth/token'
+        data = {
+            'grant_type': 'authorization_code',
+            'client_id': 'f6a0540558be646680eecd611720c12b',
+            'redirection_uri': 'http://localhost:8000/accounts/signin/kakao/callback',
+            'code': auth_code
+        }
+
+        token_response = requests.post(kakao_token_api, data=data)
+
+        access_token = token_response.json().get('access_token')
+
+        user_info_response = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer ${access_token}'})
+
+        return JsonResponse({"user_info": user_info_response.json()})

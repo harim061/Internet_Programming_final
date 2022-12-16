@@ -5,4 +5,5 @@ urlpatterns = [ #IP주소/
     path('',views.landing),
     path('about_me/',views.about_me),
     path('mypage/',views.mypage),
+
 ]

@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = "shoppingitem"
+
 urlpatterns = [
 
     path('',views.ShoppingItemList.as_view()),
@@ -14,5 +16,5 @@ urlpatterns = [
     path('update_post/<int:pk>/',views.ShoppingItemUpdate.as_view()),
     path('search/<str:q>/', views.ShoppingItemSearch.as_view()),
     path('delete_comment/<int:pk>/',views.delete_comment),
-
+    path('<int:pk>/likes/', views.likes),
 ]

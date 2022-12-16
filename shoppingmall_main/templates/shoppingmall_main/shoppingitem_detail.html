@@ -18,6 +18,18 @@
                             {% else %}
                                 <a class="badge bg-secondary text-decoration-none link-light" href="/shoppingmall_main/category/no_category/">미분류</a>
                             {% endif %}
+
+                            <h3>
+                            {% if user.is_authenticated %}
+                            {% if user in shoppingitem.like_users.all %}
+                            <a href="/shoppingmall_main/{{shoppingitem.pk}}/likes"><i class="fa-solid fa-heart" style="color:red"></i></a>
+                            {% else %}
+                              <a href="/shoppingmall_main/{{shoppingitem.pk}}/likes"><i class="fa-solid fa-heart" style="color:black"></i></a>
+                            {% endif %}
+                            {% endif %}
+
+                            {{shoppingitem.like_users.count}}명이 좋아합니다.</h3>
+
                         </header>
                         {% if user.is_authenticated and user == shoppingitem.author %}
                         <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-primary btn-sm float-right m-2">
@@ -43,6 +55,7 @@
                                 </span>
                                 {% endfor %}
                             {% endif %}
+
 
                         </section>
                     </div>
