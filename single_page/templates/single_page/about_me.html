@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link href="{% static 'single_page/bootstrap4/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'single_page/css/about.css' %}"   rel="stylesheet" media="screen" >
+    <script src="https://kit.fontawesome.com/fc13d61e87.js" crossorigin="anonymous"></script>
+</head>
+<body>
+        {% include 'shoppingmall_main/navbar.html' %}
+    <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 text-dark" id="main-area">
+                <h1>쇼핑몰 페이지 제목</h1>
+                <h2>About 페이지 소제목</h2>
+                <h5>About 페이지 설명</h5>
+            </div>
+            <div class="col-lg-4 text-light ">
+                <img class="img-fluid" src="{% static 'single_page/images/my_back.png' %}">
+            </div>
+
+                </div>
+          </div>
+            <div class="fixed-bottom">
+                {% include 'shoppingmall_main/footer.html' %}
+            </div>
+
+        </div>
+    </section>
+    <section class="margin-for-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>PORTFOLIO</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="card" data-toggle="modal" data-target="#portfolio1">
+                        <img class="card-img-top" src="{% static 'single_page/images/pycon_sy_2017.png' %}">
+                        <div class="card-body">
+                            <h5>1</h5>
+                            <p>1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'single_page/images/automation_python.png' %}">
+                        <div class="card-body">
+                            <h5>1</h5>
+                            <p>1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'single_page/images/inflearn_django2.png' %}">
+                        <div class="card-body">
+                            <h5>1</h5>
+                            <p>1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div class="modal fade" id="portfolio1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">포트폴리오 1</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-bottom">
+    {% include 'shoppingmall_main/footer.html' %}
+</div>

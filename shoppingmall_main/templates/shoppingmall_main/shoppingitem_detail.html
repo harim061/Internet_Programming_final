@@ -1,0 +1,116 @@
+{% extends 'shoppingmall_main/base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}
+    {{shoppingitem.title}}
+{% endblock %}
+{% block main_area %}
+                    <!-- Post content-->
+                    <div id="post-area">
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">{{shoppingitem.title | lower}}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">Posted on {{shoppingitem.created_at | date:"Y-m-d h:m:s"}} by {{shoppingitem.author | upper}}</div>
+                            <!-- Post categories-->
+                            {% if shoppingitem.category %}
+                                <a class="badge bg-secondary text-decoration-none link-light" href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
+                            {% else %}
+                                <a class="badge bg-secondary text-decoration-none link-light" href="/shoppingmall_main/category/no_category/">미분류</a>
+                            {% endif %}
+                        </header>
+                        {% if user.is_authenticated and user == shoppingitem.author %}
+                        <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-primary btn-sm float-right m-2">
+                            <i class="fas fa-pen"></i> Edit Post
+                        </a>
+                        {% endif %}
+                        <!-- Preview image figure-->
+                        <figure class="mb-4">
+                            {% if shoppingitem.head_image %}
+                            <img class="img-fluid rounded" src="{{shoppingitem.head_image.url}}" alt="{{p.title}}의 head_img" />
+                            {% else %}
+                            <img class="img-fluid rounded" src="https://picsum.photos/seed/{{shoppingitem.pk}}/800/200"/>
+                            {% endif %}
+                        </figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">{{shoppingitem.content}}</p>
+                            {% if shoppingitem.tag.exists %}
+                                <i class="fas fa-tag"></i>
+                                {% for t in shoppingitem.tag.iterator %}
+                                <span class="badge badge-pill badge-light">
+                                   <a href="{{t.get_absolute_url}}">{{t}}</a>
+                                </span>
+                                {% endfor %}
+                            {% endif %}
+
+                        </section>
+                    </div>
+                    <!-- Comments section-->
+                    <div id="comment-area" class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                {% if user.is_authenticated %}
+                                <form class="mb-4" id="comment-form" method="POST" action="{{shoppingitem.get_absolute_url}}new_comment/">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        {{ comment_form | crispy }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                                {% else %}
+                                <a role="button" class="btn btn-dark btn-block btn-sm m-2" href="#" data-toggle="modal" data-target="#loginModal">
+                                    Log in and leave a comment</a>
+                                {% endif %}
+                                {% if shoppingitem.comment_set.exists %}
+                                {% for comment in shoppingitem.comment_set.iterator %}
+                                <!-- Single comment-->
+                                <div class="media d-flex id=comment-{{comment.pk}}">
+                                    <img class="mr-3 rounded-circle" src="{{comment.get_avatar_url}}" alt="{{comment.author}}" width="60px"/>
+                                    <div class="media-body ms-3">
+                                        {% if user.is_authenticated and comment.author == user %}
+                                        <div class="float-right">
+                                            <a role="button" class="btn btn-sm btn-info" id="comment-{{ comment.pk }}-update-btn" href="/shoppingmall_main/update_comment/{{comment.pk}}/">Edit</a>
+                                            <a role="button" class="btn btn-sm btn-danger" id="comment-{{ comment.pk }}-delete-modal-btn" href="#" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">Delete</a>
+                                        </div>
+                                        <!-- modal-->
+                                        <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="ture">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modla-body">
+                                                    <del>{{ comment | linebreaks }}</del>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <a role="button" class="btn btn-danger" href="/shoppingmall_main/delete_comment/{{ comment.pk }}/">Delete</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <div class="fw-bold">{{comment.author.username}}
+                                        <small class="text-muted">{{comment.created_at}}</small>
+                                        </div>
+                                        <p>{{comment.content | linebreaks }}</p>
+                                        {% if comment.created_at != comment.modified_at %}
+                                            <p class="text-muted float-right">
+                                                <small>Updated : {{comment.modified_at}}</small>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+
+{% endblock %}
