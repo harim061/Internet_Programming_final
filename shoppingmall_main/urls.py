@@ -14,4 +14,5 @@ urlpatterns = [
     path('update_post/<int:pk>/',views.ShoppingItemUpdate.as_view()),
     path('search/<str:q>/', views.ShoppingItemSearch.as_view()),
     path('delete_comment/<int:pk>/',views.delete_comment),
+
 ]
