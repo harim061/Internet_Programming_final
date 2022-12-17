@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+import os
 # Create your views here.
 
 class ShoppingItemList(ListView):
@@ -232,21 +233,9 @@ class KakaoSignInView(View):
             f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}'
         )
 
-class KaKaoSignInCallBackView(View):
-    def get(self, request):
-        auth_code = request.GET.get('code')
-        kakao_token_api = 'https://kauth.kakao.com/oauth/token'
-        data = {
-            'grant_type': 'authorization_code',
-            'client_id': 'f6a0540558be646680eecd611720c12b',
-            'redirection_uri': 'http://localhost:8000/accounts/signin/kakao/callback',
-            'code': auth_code
-        }
-
-        token_response = requests.post(kakao_token_api, data=data)
-
-        access_token = token_response.json().get('access_token')
-
-        user_info_response = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer ${access_token}'})
-
-        return JsonResponse({"user_info": user_info_response.json()})
+def kakao_login(request):
+    app_rest_api_key = os.environ.get("f6a0540558be646680eecd611720c12b")
+    redirect_uri = "http://127.0.0.1:8000/accounts/kakao/login/callback"
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={'app_rest_api_key'}&redirect_uri={'redirect_uri '}&response_type=code"
+    )

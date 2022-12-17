@@ -17,11 +17,11 @@
                                 </a>
                                 {% endif %}
                             </span>
-                            <h1 class="fw-bolder mb-1" style="color:teal;">{{shoppingitem.title | lower}}</h1>
+                            <h1 class="fw-bolder mb-1" style="color:rgb(0, 62, 62);">{{shoppingitem.title | lower}}</h1>
 
 
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on {{shoppingitem.created_at | date:"Y-m-d h:m:s"}} by {{shoppingitem.author | upper}}</div>
+                            <div class="text-muted fst-italic mb-2">Posted on {{shoppingitem.created_at | date:"Y-m-d h:m:s"}} by {{shoppingitem.m_company | upper}}</div>
                             <!-- Post categories-->
                             {% if shoppingitem.category %}
                                 <a class="badge  text-decoration-none"  style="background-color:teal;color:white" href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
@@ -56,11 +56,11 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4">{{shoppingitem.information}}</p>
-                            {% if shoppingitem.tag.exists %}
+                            {% if shoppingitem.tags.exists %}
                                 <i class="fas fa-tag"></i>
-                                {% for t in shoppingitem.tag.iterator %}
-                                <span class="badge badge-pill badge-light">
-                                   <a href="{{t.get_absolute_url}}">{{t}}</a>
+                                {% for t in shoppingitem.tags.iterator %}
+                                <span class="badge badge-light" style="color:white;background-color:teal;'">
+                                   <a href="{{t.get_absolute_url}}" style="color:white;">{{t}}</a>
                                 </span>
                                 {% endfor %}
                             {% endif %}
@@ -71,16 +71,16 @@
                     </div>
                     <!-- Comments section-->
                     <div id="comment-area" class="mb-5">
-                        <div class="card " style="background-color:teal;border-radius:10px; color:snow;">
+                        <div class="card " style="background-color:rgb(0, 62, 62);border-radius:10px; color:snow;">
                             <div class="card-body" >
                                 <!-- Comment form-->
                                 {% if user.is_authenticated %}
-                                <form class="mb-4" id="comment-form" method="POST" style="background-color:teal;" action="{{shoppingitem.get_absolute_url}}new_comment/">
+                                <form class="mb-4" id="comment-form" method="POST" style="background-color:rgb(0, 62, 62);" action="{{shoppingitem.get_absolute_url}}new_comment/">
                                     {% csrf_token %}
-                                    <div class="form-group" style="background-color:teal;" >
+                                    <div class="form-group" style="background-color:rgb(0, 62, 62);" >
                                         {{ comment_form | crispy }}
                                     </div>
-                                    <button type="submit" class="btn btn-light" style="background-color:snow;color:teal;border:2px solid teal;">Submit</button>
+                                    <button type="submit" class="btn btn-light" style="background-color:snow;color:rgb(0, 62, 62);border:2px solid teal;">Submit</button>
                                 </form>
                                 {% else %}
                                 <a role="button" class="btn btn-light btn-block btn-sm m-2" style="color:teal;"href="#" data-toggle="modal" data-target="#loginModal">

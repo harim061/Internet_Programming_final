@@ -3,12 +3,16 @@
      <link href="{% static 'shoppingmall_main/css/style.css' %}"   rel="stylesheet" media="screen" >
 </head>
 
+
 {% load socialaccount %}
 
-    <container>
-    <nav class="navbar navbar-expand-lg" style="background-color: snow; border-bottom:solid 3px teal">
+
+    <container >
+    <nav class="navbar navbar-expand-lg"
+         style="background-color: snow;
+         border-bottom:solid 3px teal">
     <div class="container">
-        <a class="navbar-brand " href="/" style="font-size:28px;font-weight:bold">HoLiday</a>
+        <a class="navbar-brand " href="/">HoLiday</a>
         <button class="navbar-toggler navbar-light " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" >
             <span class="navbar-toggler-icon" ></span>
         </button>
@@ -31,7 +35,7 @@
 
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {% if user.socialaccount_set.all.0.get_avatar_url %}
-                        <img class="rounded-circle mr-3" src="{{user.socialaccount_set.all.0.get_avatar_url}}" width="25px">
+                        <img class="rounded-circle mr-3" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" width="25px">
                       {% else %}
                         <img class="rounded-circle mr-3" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" width="25px">
                       {% endif %}
@@ -79,10 +83,6 @@
             <a role="button" class="btn btn-outline-dark btn-block btn-sm"
             href="/accounts/signup/">
               <i class="fa-regular fa-envelope"></i> Signup with Email
-            </a>
-          <a role="button" class="btn btn-outline-dark btn-block btn-sm"
-            href="/accounts/signup/">
-              <i class="fa-regular fa-envelope"></i> Login with Kakao
             </a>
 
           </div>

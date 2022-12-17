@@ -10,7 +10,7 @@
             {% endif %}
         {% endif %}
 
-          <h2 style="color : teal">HoLiday Shopping
+          <h2 style="color : rgb(0, 62, 62)">HoLiday Shopping
               {% if search_info %}
               <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{search_info}}</span>
               {% endif %}
@@ -39,7 +39,7 @@
               {% else %}
                             <img class="img-fluid rounded" src="https://picsum.photos/seed/{{p.pk}}/800/200"/>
               {% endif %}
-            <div class="card-body" style="background-color : teal;">
+            <div class="card-body" style="background-color : rgb(0, 62, 62);">
                 {% if p.category %}
                 <span class="badge badge-light float-right"><a href="{{p.category.get_absolute_url}}" style="color : teal">{{p.category}}</a></span>
                 {% else %}

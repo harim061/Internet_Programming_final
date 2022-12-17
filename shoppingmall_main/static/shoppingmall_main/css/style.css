@@ -1,16 +1,25 @@
 @font-face {
     font-family: 'Magilio';
-    src: url("./MagilioRegular-Yzv2O.ttf");
+
 }
 body{
-    background-color:snow;
+ background:snow;
+
 }
+
+.card{
+ border: 2px solid gray;
+}
+
+
 * {
 
     font-family: 'Magilio';
     font-size: 20px;
     font-weight: 550;
 }
+
+
 
 nav a{
     color: teal;
@@ -19,4 +28,3 @@ nav a{
 nav a:hover{
     color: rgb(0, 62, 62);
 }
-
