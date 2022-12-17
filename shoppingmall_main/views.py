@@ -20,6 +20,8 @@ class ShoppingItemList(ListView):
         context['no_category_post_count'] = ShoppingItem.objects.filter(category=None).count
         return context
 
+
+
 class ShoppingItemDetail(DetailView):
     model = ShoppingItem
 
@@ -79,7 +81,8 @@ def company_page(request,slug):
             'company' :m_company,
             'shoppingitem_list' : ShoppingItemList,
             'companies': Company.objects.all(),
-            'no_category_post_count': ShoppingItem.objects.filter(m_company=None).count(),
+            'categories': Category.objects.all(),
+            'no_category_post_count': ShoppingItem.objects.filter(category=None).count(),
         }
     )
 

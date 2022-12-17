@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>About Us</title>
     <link href="{% static 'single_page/bootstrap4/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'single_page/css/about.css' %}"   rel="stylesheet" media="screen" >
     <script src="https://kit.fontawesome.com/fc13d61e87.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 <body>
         {% include 'shoppingmall_main/navbar.html' %}
@@ -17,14 +18,14 @@
         <div class="container mt-3">
           <div class="row">
             <div class="col-lg-8 text-dark" id="main-area">
-                <h1>about "HoLiday"</h1>
+                <h1>about <i style="color:teal;font-size:50px">"HoLiday"</i></h1>
 
                 <p>국내외 다양한 문화 예술계 창작자들을 소개하고 그들의 작품을 판매하는 아트 커머스 브랜드 카바 라이프는 여러 장르의 예술품을 새로운 컬렉션으로 통합하여 선보이는 편집 매장이자 작가들을 위한 플랫폼입니다.<br>
 2018년 4월에 론칭하여 719여명의 작가와 함께 7,000여 가지의 작품을 판매하고 있으며, 온라인 매장과 더불어 매번 다른 주제로 오픈하는 전시형 팝업 스토어를 함께 운영하는 방식으로 새로운 예술 소비 경험을 제시합니다.<br>
 일상 속에서 ‘사용할 수 있는 예술’을 개발하고 ‘예술적 소비의 가치’를 문화적으로 전파하는 글로벌 브랜드로 자리매김하고자 노력하고 있습니다.</p>
             </div>
             <div class="col-lg-4 text-light ">
-                <img class="img-fluid" src="{% static 'single_page/images/my_back.png' %}">
+                <img class="img-fluid" src="{% static 'single_page/images/cava.jpg' %}">
             </div>
 
                 </div>
@@ -38,25 +39,52 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>PORTFOLIO</h1>
+                    <h1 style="color:teal">HoLiday LIFE</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="card" data-toggle="modal" data-target="#portfolio1">
-                        <img class="card-img-top" src="{% static 'single_page/images/automation_python.png' %}" />
+                        <img class="card-img-top" src="{% static 'single_page/images/cava2.jpg' %}" />
                         <div class="card-body">
-                          <h5>첫번째 포트폴리오</h5>
-                          <p>첫번째 포트폴리오입니다.</p>
+                          <h6>Suggest various experiences of art consumption.</h6>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                   <div class="card" data-toggle="modal" data-target="#portfolio3">
-                    <div class="card-img-top" id="mychart1"></div>
+                    <div class="card-img-top" id="mychart2"></div>
                     <div class="card-body">
-                      <h5>세번째 포트폴리오</h5>
-                      <p>세번째 포트폴리오입니다.</p>
+                      <h6>HoLiday Shop Best</h6>
+                         <canvas id="pie-chart">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#008080', '#2f4f4f', '#00000', '#f5deb3', '#c0c0c0'
+          ],
+          label: 'Population'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+                        </canvas>
                     </div>
                   </div>
                 </div>
@@ -64,71 +92,29 @@
         </div>
     </section>
 
-        <script>
- google.charts.load('current', {'packages':['line']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart(){
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses', 'Profit'],
-                ['2014', 1000, 400, 200],
-                ['2015', 1170, 460, 250],
-                ['2016', 600, 112, 300],
-                ['2017', 1030, 540, 350]
-                ]);
-            var options = {
-                chart: {
-                 title: 'Company Performance',
-                 subtitle: 'Sales, Expenses, Profit : 2014-2017',
-                }
-            };
-            var chart = new google.charts.Line(document.getElementById('mychart1'));
-            chart.draw(data, google.charts.Line.convertOptions(options));
-        }
-
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart2);
-
-        function drawChart2(){
-            var data = google.visualizations.arrayToDataTable([
-                ['Year', 'Sales'],
-                ['2014', 1000],
-                ['2015', 1170],
-                ['2016', 600],
-                ['2017', 1030]
-            ]);
-            var options = {
-                 chart: {
-                 title: 'Company Performance',
-                 subtitle: 'Sales : 2014-2017',
-                }
-            };
-            var chart = new google.visualization.PieChart(document.getElementById('mychart2'));
-            chart.draw(data, options);
-        };
-</script>
-<div class="modal fade" id="portfolio1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id ="portfolio1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">포트폴리오 1</h5>
+        <h5 class="modal-title" id="exampleModalLabel">various experiences</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-            <div class="col-6">
-                <img class="card-img-top" src="{% static 'single_page/images/pycon_sy_2017.png' %}">
+            <div class="container">
+                <img class="card-img-top " src="{% static 'single_page/images/cava3.jpg' %}">
+                <p class="m-2">CAVA LIFE 는 새로운 예술 소비 경험의 장을 만들기 위해 다양한 공간과 함께 팝업스토어를 선보여왔습니다. </p>
+                <img class="card-img-top" src="{% static 'single_page/images/cava4.jpg' %}">
+                <p class="m-2">미술관 등 여러 공간을 새로운 시각으로 편집하고, 팝업 이벤트를 통해 서울의 컬처 씬을 선보이며 글로벌 관객들의 높은 호응을 이끌어내기도 했습니다. </p>
+                <img class="card-img-top" src="{% static 'single_page/images/cava5.jpg' %}">
             </div>
-            <div class="col-6">
-                <h5>1</h5>
-                <p>1</p>
-            </div>
+
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn " style="background-color:teal;color:white;"data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -138,7 +124,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel3">포트폴리오 3</h5>
+              <h5 class="modal-title" id="exampleModalLabel3">HoLiday Shop</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -146,17 +132,17 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-12">
-                    <h5>Company Performance</h5>
+                    <h5>About Shop</h5>
                     <table class="table table-boundary table-striped">
-                        <tr><th>Year</th><th>Sales</th><th>Expense</th><th>Profit</th></tr>
-                        <tr><th>2014</th><th>1000</th><th>400</th><th>200</th></tr>
+                        <tr style="background-color:teal;color:white;"><th>Year</th><th>Sales</th><th>Expense</th><th>Profit</th></tr>
+                        <tr><th>2022</th><th>1000</th><th>400</th><th>200</th></tr>
 
                     </table>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button"  class="btn " style="background-color:teal;color:white;"data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
