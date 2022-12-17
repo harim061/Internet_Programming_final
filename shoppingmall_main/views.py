@@ -12,7 +12,7 @@ from django.db.models import Q
 class ShoppingItemList(ListView):
     model = ShoppingItem
     ordering = '-pk'
-    paginate_by = 3
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ShoppingItemList, self).get_context_data() ##템플릿에서 필요한 거 담아서 전달

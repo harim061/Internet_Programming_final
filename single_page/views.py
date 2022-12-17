@@ -1,7 +1,7 @@
 from django import db
 from django.shortcuts import render
-from shoppingmall_main.models import ShoppingItem
-from shoppingmall_main.models import Comment
+from shoppingmall_main.models import ShoppingItem,Category
+from shoppingmall_main.models import Comment,ColorTag
 from django.views.generic import ListView
 # Create your views here.
 
@@ -17,11 +17,13 @@ def about_me(request):
     labels = []
     data = []
 
-    queryset = ShoppingItem.objects.order_by()[:5]
+    queryset = ColorTag.objects.order_by()
 
-    for shoppingitem in queryset:
-        labels.append(shoppingitem.title)
-        data.append(shoppingitem.price)
+    for tag in queryset:
+        tags = ShoppingItem.tags.through.objects.filter(colortag=tag)
+        tag_count = tags.count()
+        labels.append(tag.name)
+        data.append(tag_count)
     return render(request,'single_page/about_me.html',{
         'labels': labels,
         'data': data,

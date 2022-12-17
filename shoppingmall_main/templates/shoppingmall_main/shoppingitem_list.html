@@ -19,6 +19,11 @@
               {% endif %}
               {% if company %}
               - <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ company }}</span>
+              <div class="container mt-3">
+                <span class="mb-3">contact : {{company.email}}</span><br>
+                <span class="mb-3">address : {{company.address}}</span><br>
+                 <span class="mb-3">tel : {{company.tel}}</span>
+              </div>
               {% endif %}
               {% if tag %}
                - <i class="fas fa-tags"></i>
@@ -41,7 +46,7 @@
                     <span class="badge badge-light float-right"><a href="/shoppingmall_main/category/no_category/" style="color : teal">미분류</a></span>
                 {% endif %}
                 <h2 class="card-title" style="color:white">{{p.title | upper}}</h2>
-                <p class="card-text">{{p.content | truncatechars:100}}</p>
+                <p class="card-text" style="color:white">{{p.information | truncatechars:20}}</p>
                 {% if p.tags.exists %}
                     <i class="fas fa-tags "style="color:white;"></i>
                     {% for t in p.tags.iterator %}
