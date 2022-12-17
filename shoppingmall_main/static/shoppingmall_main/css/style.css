@@ -1,6 +1,13 @@
-* {
+@font-face {
+    font-family: 'Magilio';
+    src: url("./MagilioRegular-Yzv2O.ttf");
+}
+body{
     background-color:snow;
-    font-family: 'Magilio', sans-serif;
+}
+* {
+
+    font-family: 'Magilio';
     font-size: 20px;
     font-weight: 550;
 }

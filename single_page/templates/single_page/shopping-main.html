@@ -12,7 +12,7 @@
 
       {% include 'shoppingmall_main/navbar.html' %}
     <!-- Page Content-->
-
+    
     <div class="container px-4 px-lg-5" >
         <!-- Heading Row-->
         <div class="row gx-4 gx-lg-5 align-items-center my-5">
@@ -42,46 +42,38 @@
 
 
 
-        <!--welcome to holiday 부분-->
+        <!--welcome to holiday 부분-->   
             <div class="col-lg-5">
                 <h1 class="font-weight-light" style="color:teal ;">Welcome to HoLiday</h1>
                 <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components</p>
-                <a href="/shoppingmall_main/" role="button" class="btn"  style="background-color: teal;color: white;">
-               Go Shopping</a>
+                <button type="button" class="btn"  style="background-color: teal;color: white;";href="/shoppingmall_main/">Go Shopping</button>
             </div>
         </div>
 
         <!-- Content Row-->
-        <h2 style="color : teal">Recent Item</h2>
         <div class="row gx-4 gx-lg-5">
+             <h2>Recent Posts</h2>
             {% for post in recent_posts %}
             <div class="col-md-4 mb-5">
-
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title"><a href="{{post.get_absolute_url}}" >
                             {{post.title}}
                         </a></h3>
-                         <img class="card-img-top" src="{{post.head_image.url}}">
-                        <p class="card-text" >{{post.information | truncatechars:20}}
-                           <br>price : {{post.price}}</p>
-
+                        <p class="card-text">{{post.content}}</p>
                         <span class="badge badge-pill badge-light float-right">
                         <img class="rounded-circle mr-1 " width="20px" src="{{post.get_avatar_url}}">
-                        {{post.author.username}}
+                        {{post.author.username}} {{post.created_at}}
                     </span>
-                        <i class="fa-solid fa-heart" style="color : red"></i>
-                        {{post.like_users.count}}
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-
-    </div>
-        <div class="bottom">
+        <div class="fixed-bottom">
             {% include 'shoppingmall_main/footer.html' %}
         </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

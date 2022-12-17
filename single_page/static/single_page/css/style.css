@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Magilio';
+    src: url("./MagilioRegular-Yzv2O.ttf");
+}
+* {
+    font-family: 'Magilio';
+    font-size: 20px;
+    font-weight: 550;
+}
+
+nav a{
+    color: teal;
+}
+
+nav a:hover{
+    color: rgb(0, 62, 62);
+}
+
+a {
+    color: teal;
+}
+
+a:hover{
+    color:rgb(0,62,62);
+}

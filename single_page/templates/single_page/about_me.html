@@ -14,12 +14,14 @@
 <body>
         {% include 'shoppingmall_main/navbar.html' %}
     <section>
-        <div class="container">
+        <div class="container mt-3">
           <div class="row">
             <div class="col-lg-8 text-dark" id="main-area">
-                <h1>쇼핑몰 페이지 제목</h1>
-                <h2>About 페이지 소제목</h2>
-                <h5>About 페이지 설명</h5>
+                <h1>about "HoLiday"</h1>
+
+                <p>국내외 다양한 문화 예술계 창작자들을 소개하고 그들의 작품을 판매하는 아트 커머스 브랜드 카바 라이프는 여러 장르의 예술품을 새로운 컬렉션으로 통합하여 선보이는 편집 매장이자 작가들을 위한 플랫폼입니다.<br>
+2018년 4월에 론칭하여 719여명의 작가와 함께 7,000여 가지의 작품을 판매하고 있으며, 온라인 매장과 더불어 매번 다른 주제로 오픈하는 전시형 팝업 스토어를 함께 운영하는 방식으로 새로운 예술 소비 경험을 제시합니다.<br>
+일상 속에서 ‘사용할 수 있는 예술’을 개발하고 ‘예술적 소비의 가치’를 문화적으로 전파하는 글로벌 브랜드로 자리매김하고자 노력하고 있습니다.</p>
             </div>
             <div class="col-lg-4 text-light ">
                 <img class="img-fluid" src="{% static 'single_page/images/my_back.png' %}">
@@ -27,9 +29,7 @@
 
                 </div>
           </div>
-            <div class="fixed-bottom">
-                {% include 'shoppingmall_main/footer.html' %}
-            </div>
+
 
         </div>
     </section>
@@ -63,6 +63,7 @@
             </div>
         </div>
     </section>
+
         <script>
  google.charts.load('current', {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart);
@@ -160,11 +161,13 @@
           </div>
         </div>
       </div>
-<div class="fixed-bottom">
-    {% include 'shoppingmall_main/footer.html' %}
-</div>
 
+    <div class="bottom">
+        {% include 'shoppingmall_main/footer.html' %}
+    </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
+</body>
+</html>

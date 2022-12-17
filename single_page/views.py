@@ -25,8 +25,6 @@ def mypage(request):
         'author':author,
         'comments' : comment_list,
         'likes_count':likes_count,
-
-
         }
     )
 

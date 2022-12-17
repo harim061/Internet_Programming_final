@@ -1,28 +1,30 @@
 {% extends 'shoppingmall_main/base.html' %}
 
 {% block main_area %}
+<div class="container mt-3">
         {% if user.is_authenticated %}
             {% if user.is_superuser or user.is_staff %}
-                <a href="/shoppingmall_main/create_post" role="button" class="btn btn-primary btn-sm  float-right m-1">
-                    <i class="fas fa-pen"></i> New shopping
+                <a href="/shoppingmall_main/create_post" role="button" class="btn btn-sm float-right m-1" style="background-color: teal;color: white;">
+                    <i class="fas"></i> New shopping
                 </a>
             {% endif %}
         {% endif %}
-          <h2>shopping
+
+          <h2 style="color : teal">HoLiday Shopping
               {% if search_info %}
-              <span class="badge badge-secondary">{{search_info}}</span>
+              <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{search_info}}</span>
               {% endif %}
               {% if category %}
-              - <span class="badge badge-secondary">{{ category }}</span>
+              - <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ category }}</span>
               {% endif %}
               {% if company %}
-              - <span class="badge badge-secondary">{{ company }}</span>
+              - <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ company }}</span>
               {% endif %}
-              {% if tags %}
+              {% if tag %}
                - <i class="fas fa-tags"></i>
-              <span class="badge badge-secondary">{{ tags }} ({{tags.post_set.count}})</span>
+              <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ tag }}</span>
               {% endif %}
-          </h2>
+          </h2></div>
           <!-- Featured blog post-->
             {% if shoppingitem_list.exists %}
             {% for p in shoppingitem_list %}
@@ -32,28 +34,28 @@
               {% else %}
                             <img class="img-fluid rounded" src="https://picsum.photos/seed/{{p.pk}}/800/200"/>
               {% endif %}
-            <div class="card-body">
+            <div class="card-body" style="background-color : teal;">
                 {% if p.category %}
-                <span class="badge badge-secondary float-right"><a href="{{p.category.get_absolute_url}}">{{p.category}}</a></span>
+                <span class="badge badge-light float-right"><a href="{{p.category.get_absolute_url}}" style="color : teal">{{p.category}}</a></span>
                 {% else %}
-                    <span class="badge badge-secondary float-right"><a href="/shoppingmall_main/category/no_category/">미분류</a></span>
+                    <span class="badge badge-light float-right"><a href="/shoppingmall_main/category/no_category/" style="color : teal">미분류</a></span>
                 {% endif %}
-                <h2 class="card-title">{{p.title | upper}}</h2>
+                <h2 class="card-title" style="color:white">{{p.title | upper}}</h2>
                 <p class="card-text">{{p.content | truncatechars:100}}</p>
                 {% if p.tags.exists %}
-                    <i class="fas fa-tags"></i>
+                    <i class="fas fa-tags "style="color:white;"></i>
                     {% for t in p.tags.iterator %}
                     <span class="badge badge-pill badge-light">
-                        <a href="{{t.get_absolute_url}}">{{t}}</a>
+                        <a href="{{t.get_absolute_url}}" style="color : teal;">{{t}}</a>
                     </span>
                     {% endfor %}
                 <br><br>
                 {% endif %}
-                <a class="btn btn-primary" href="{{p.get_absolute_url}}">Read more > </a>
+                <a class="btn btn-light" style="color:teal;"href="{{p.get_absolute_url}}">More Info </a>
             </div>
-              <div class="card-footer">
+              <div class="card-footer" style="background-color : white">
                   <div class="small text-muted">{{p.created_at | date:"Y-m-d h:m:s"}}</div>
-                  <a href="{{p.m_company.get_absolute_url}}">{{p.m_company | upper}}</a>
+                  <a href="{{p.m_company.get_absolute_url}}" style="color:teal">{{p.m_company | upper}}</a>
               </div>
           </div>
 
@@ -68,19 +70,19 @@
     <hr class="my-0" />
         <ul class="pagination justify-content-center my-4">
             {% if page_obj.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">Newer</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true" style="color:teal;">Newer</a></li>
             {% else %}
             <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
             {% endif %}
             {% if page_obj.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Older</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}" style="color:teal;">Older</a></li>
             {% else %}
             <li class="page-item disabled"><a class="page-link" href="#!">Older</a></li>
             {% endif %}
 
         </ul>
     </nav>
-    #{% endif %}
+    {% endif %}
 
 
 {% endblock %}

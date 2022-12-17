@@ -4,22 +4,32 @@
     {{shoppingitem.title}}
 {% endblock %}
 {% block main_area %}
+<div class="container  mt-3">
                     <!-- Post content-->
                     <div id="post-area">
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">{{shoppingitem.title | lower}}</h1>
+                            <span>
+                                {% if user.is_authenticated and user == shoppingitem.author %}
+                                <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-sm float-right m-2" style="background-color:teal;color:white" >
+                                    <i class="fas fa-pen"></i> Edit Post
+                                </a>
+                                {% endif %}
+                            </span>
+                            <h1 class="fw-bolder mb-1" style="color:teal;">{{shoppingitem.title | lower}}</h1>
+
+
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">Posted on {{shoppingitem.created_at | date:"Y-m-d h:m:s"}} by {{shoppingitem.author | upper}}</div>
                             <!-- Post categories-->
                             {% if shoppingitem.category %}
-                                <a class="badge bg-secondary text-decoration-none link-light" href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
+                                <a class="badge  text-decoration-none"  style="background-color:teal;color:white" href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
                             {% else %}
-                                <a class="badge bg-secondary text-decoration-none link-light" href="/shoppingmall_main/category/no_category/">미분류</a>
+                                <a class="badge text-decoration-none " style="background-color:teal;color:white"  href="/shoppingmall_main/category/no_category/">미분류</a>
                             {% endif %}
 
-                            <h3>
+                            <h5 class="mt-2 float-right">
                             {% if user.is_authenticated %}
                             {% if user in shoppingitem.like_users.all %}
                             <a href="/shoppingmall_main/{{shoppingitem.pk}}/likes"><i class="fa-solid fa-heart" style="color:red"></i></a>
@@ -27,16 +37,13 @@
                               <a href="/shoppingmall_main/{{shoppingitem.pk}}/likes"><i class="fa-solid fa-heart" style="color:black"></i></a>
                             {% endif %}
                             {% endif %}
-
-                            {{shoppingitem.like_users.count}}명이 좋아합니다.</h3>
+                            <span>
+                            {{shoppingitem.like_users.count}}명이 좋아합니다.</span></h5>
 
                         </header>
-                        {% if user.is_authenticated and user == shoppingitem.author %}
-                        <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-primary btn-sm float-right m-2">
-                            <i class="fas fa-pen"></i> Edit Post
-                        </a>
-                        {% endif %}
+
                         <!-- Preview image figure-->
+
                         <figure class="mb-4">
                             {% if shoppingitem.head_image %}
                             <img class="img-fluid rounded" src="{{shoppingitem.head_image.url}}" alt="{{p.title}}의 head_img" />
@@ -44,9 +51,11 @@
                             <img class="img-fluid rounded" src="https://picsum.photos/seed/{{shoppingitem.pk}}/800/200"/>
                             {% endif %}
                         </figure>
+
+
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4">{{shoppingitem.content}}</p>
+                            <p class="fs-5 mb-4">{{shoppingitem.information}}</p>
                             {% if shoppingitem.tag.exists %}
                                 <i class="fas fa-tag"></i>
                                 {% for t in shoppingitem.tag.iterator %}
@@ -56,21 +65,22 @@
                                 {% endfor %}
                             {% endif %}
 
-
                         </section>
+
+
                     </div>
                     <!-- Comments section-->
                     <div id="comment-area" class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
+                        <div class="card " style="background-color:teal;border-radius:10px; color:snow;">
+                            <div class="card-body" >
                                 <!-- Comment form-->
                                 {% if user.is_authenticated %}
-                                <form class="mb-4" id="comment-form" method="POST" action="{{shoppingitem.get_absolute_url}}new_comment/">
+                                <form class="mb-4" id="comment-form" method="POST" style="background-color:teal;" action="{{shoppingitem.get_absolute_url}}new_comment/">
                                     {% csrf_token %}
-                                    <div class="form-group">
+                                    <div class="form-group" style="background-color:teal;" >
                                         {{ comment_form | crispy }}
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-light" style="background-color:snow;color:teal;border:2px solid teal;">Submit</button>
                                 </form>
                                 {% else %}
                                 <a role="button" class="btn btn-dark btn-block btn-sm m-2" href="#" data-toggle="modal" data-target="#loginModal">
@@ -91,17 +101,17 @@
                                         <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                                <div class="modal-header" style="color:black;">
                                                     <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="ture">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modla-body">
+                                                <div class="modla-body pl-3 pt-3" style="color:black;">
                                                     <del>{{ comment | linebreaks }}</del>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn" style="background-color:teal;color:white;"data-dismiss="modal">Cancel</button>
                                                     <a role="button" class="btn btn-danger" href="/shoppingmall_main/delete_comment/{{ comment.pk }}/">Delete</a>
                                                 </div>
                                                 </div>
@@ -109,12 +119,12 @@
                                         </div>
                                         {% endif %}
                                         <div class="fw-bold">{{comment.author.username}}
-                                        <small class="text-muted">{{comment.created_at}}</small>
+                                        <small>{{comment.created_at}}</small>
                                         </div>
                                         <p>{{comment.content | linebreaks }}</p>
                                         {% if comment.created_at != comment.modified_at %}
-                                            <p class="text-muted float-right">
-                                                <small>Updated : {{comment.modified_at}}</small>
+                                            <p class=" float-right" style="color:balck;">
+                                                <small >Updated : {{comment.modified_at}}</small>
                                             </p>
                                         {% endif %}
                                     </div>
@@ -124,6 +134,6 @@
                             </div>
                         </div>
                     </div>
-
+</div>
 
 {% endblock %}

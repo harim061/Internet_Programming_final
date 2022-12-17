@@ -39,12 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'django.contrib.sites',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.kakao',
     'shoppingmall_main','single_page',
 ]
 AUTHENTICATION_BACKENDS = (
