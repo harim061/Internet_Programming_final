@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .models import ShoppingItem,Category,ColorTag,Comment,Company,SubComment
+from .models import ShoppingItem,Category,ColorTag,Comment,Company,ReComment
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
-from .forms import CommentForm
+from .forms import CommentForm,SubCommentForm
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django import forms
@@ -231,21 +231,16 @@ import requests
 
 class SubCommentForm(forms.ModelForm):
     class Meta:
-        model = SubComment
+        model = ReComment
         fields = ('content',)
 
-def new_subcomment(request,pk):
-    if request.user.is_authenticated:
-        shoppingitem = get_object_or_404(ShoppingItem,pk=pk)
 
-        if request.method == 'POST':
-            subcomment_form = SubCommentForm(request.POST)
-            if subcomment_form.is_valid():
-                subcomment = subcomment_form.save(commit=False)
-                subcomment.author = request.user
-                subcomment.save()
-            return redirect(shoppingitem.get_absolute_url())
-        else:
-            return redirect(shoppingitem.get_absolute_url())
-    else:
-        raise PermissionDenied
+def recomment_create(request,pk):
+
+    filled_form = SubCommentForm(request.POST)
+    if filled_form.is_valid():
+        finished_form = filled_form.save(commit=False)
+        finished_form.post = get_object_or_404(Comment, pk=pk)
+        finished_form.user = request.user
+        finished_form.save()
+    return redirect(finished_form.post.get_absolute_url(), pk=finished_form.post.shoppingitem.pk)

@@ -17,7 +17,7 @@ urlpatterns = [
     path('search/<str:q>/', views.ShoppingItemSearch.as_view()),
     path('delete_comment/<int:pk>/',views.delete_comment),
     path('<int:pk>/likes/', views.likes),
-    path('subcomment/<int:pk>/',views.new_subcomment)
+    path('recomment/<int:pk>/',views.recomment_create)
 
 
 ]

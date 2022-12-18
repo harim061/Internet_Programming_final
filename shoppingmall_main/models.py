@@ -102,7 +102,7 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now = True)
-    subcomment = models.ManyToManyField(SubComment, blank=True)
+
     def __str__(self):
         return f'{self.author} : {self.content}'
 
@@ -115,3 +115,12 @@ class Comment(models.Model):
         else:
             return 'https://dummyimage.com/50x50/ced4da/6c757d.jpg'
 
+class ReComment(models.Model):
+    post = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    content = models.CharField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.post

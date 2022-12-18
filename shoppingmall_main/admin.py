@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ShoppingItem,Category,ColorTag,Company,Comment,SubComment
+from .models import ShoppingItem,Category,ColorTag,Company,Comment,ReComment
 from markdownx.admin import MarkdownxModelAdmin
 # Register your models here.
 
@@ -17,4 +17,4 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 admin.site.register(ColorTag,TagAdmin)
 admin.site.register(Comment)
-admin.site.register(SubComment)
+admin.site.register(ReComment)

@@ -134,10 +134,10 @@
                                 </div>
 
                                 <!--     대댓글 하나하나를 for문으로 분리시켜서 하나씩 뜨게 함 -->
-                            {% for recom in comment.subcomment.iterator %}
+                           {% for recom in comment.recomment_set.all %}
                             <small class="mt-0">
                                 <!-- 대댓글 작성자 / 대댓글 생성 시간 -->
-                                ㄴ {{ recom.content }} by {{ recom.author }} : {{ recom.create_at}}
+                                ㄴ {{ recom.content }} by {{ recom.user }} : {{ recom.created_at}}
                                 <br>
                             </small>
 
@@ -151,14 +151,16 @@
                                 </a>
                             {% endif %}
                             <!-- recomment_Form -->
-                            <form id="recomment-form" method="post" action="/shoppingmall_main/subcomment/{{comment.pk}}/">
+                            <form id="recomment-form" method="post" action="/shoppingmall_main/recomment/{{comment.pk}}/">
                                 {% csrf_token %}
                                 {{  subcomment_form | crispy }}
-                                <input type="hidden" name="comment" value="{{ comment.pk }}">
+                                <input type="hidden" name="comment" value="{{ subcomment.id }}">
                                 <button  type="submit" class="btn btn-secondary btn-sm float-right" >
                                     작성 완료
                                 </button>
                             </form>
+                               <br>
+                                <br>
 
 
                                 {% endfor %}
