@@ -236,11 +236,12 @@ class SubCommentForm(forms.ModelForm):
 
 
 def recomment_create(request,pk):
+    if request.user.is_authenticated:
 
-    filled_form = SubCommentForm(request.POST)
-    if filled_form.is_valid():
-        finished_form = filled_form.save(commit=False)
-        finished_form.post = get_object_or_404(Comment, pk=pk)
-        finished_form.user = request.user
-        finished_form.save()
-    return redirect(finished_form.post.get_absolute_url(), pk=finished_form.post.shoppingitem.pk)
+        form = SubCommentForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.post = get_object_or_404(Comment, pk=pk)
+            form.user = request.user
+            form.save()
+    return redirect(form.post.get_absolute_url(), pk=form.post.shoppingitem.pk)

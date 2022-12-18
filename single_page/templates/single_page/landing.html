@@ -66,9 +66,6 @@
                         <p class="card-text" >{{post.information | truncatechars:20}}
                            <br>price : {{post.price}}</p>
 
-                        <span class="badge badge-pill badge-light float-right">
-                        <img class="rounded-circle mr-1 " width="20px" src="{{post.get_avatar_url}}">
-                        {{post.author.username}}
                     </span>
                         <i class="fa-solid fa-heart" style="color : red"></i>
                         {{post.like_users.count}}

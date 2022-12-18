@@ -52,25 +52,16 @@ class ShoppingItem(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     title = models.CharField(max_length=50) # 상품 이름
-
     information = MarkdownxField() # 상품 설명
-
     price = models.IntegerField() # 가격
     like_users = models.ManyToManyField(User,related_name='like_shopping',blank=True)
-
     head_image = models.ImageField(upload_to='shoppingmall_main/images/%Y/%m/%d/', blank=True) # 상품 이미지
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     m_company = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL) # 제조사
-
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE) # 카테고리
-
     product_number = models.IntegerField() # 그 외 상품번호
-
     tags = models.ManyToManyField(ColorTag,blank=True) # 다대다 관계
-
-
 
     def __str__(self):
         return f'{self.title} by {self.m_company}'
@@ -123,4 +114,4 @@ class ReComment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.post
+        return self.content

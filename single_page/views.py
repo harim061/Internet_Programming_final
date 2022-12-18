@@ -1,7 +1,7 @@
 from django import db
 from django.shortcuts import render
 from shoppingmall_main.models import ShoppingItem,Category
-from shoppingmall_main.models import Comment,ColorTag
+from shoppingmall_main.models import Comment,ColorTag,SubComment
 from django.views.generic import ListView
 # Create your views here.
 
@@ -33,6 +33,7 @@ def mypage(request):
     author = request.user
     user= request.user
     comment_list = Comment.objects.filter(author=author)
+
     likes= ShoppingItem.like_users.through.objects.filter(user=user)
     likes_count = likes.count()
     shoppingitem = ShoppingItem.objects.filter(like_users=user)
@@ -44,6 +45,7 @@ def mypage(request):
         'likes':likes,
         'likes_count':likes_count,
         'shoppingitem':shoppingitem,
+
         }
     )
 
