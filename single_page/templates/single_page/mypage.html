@@ -18,9 +18,9 @@
 
     <div class="container mt-3">
 
-         <span style="color:teal; font-size:50px">Welcome, </span>
+         <span style="color:black; font-size:50px">Welcome, </span>
         <span style="font-size:40px">{{user.username}}</span>
-         <span style="color:teal; font-size:50px">! </span>
+         <span style="color: rgb(0, 62, 62); font-size:50px">! </span>
 
         <span class="float-right">
              {% if user.socialaccount_set.all.0.get_avatar_url %}
@@ -31,19 +31,17 @@
 
         </span>
     </div>
-
-
         <div class="container mt-5 mb-5">
                <h4 >Like {{ likes_count }}개
-               <i class="fa-solid fa-heart"style="color:teal;"></i></h4>
+               <i class="fa-solid fa-heart"style="color: red"></i></h4>
 <div class="row row-cols-1 row-cols-md-3 g-4">
         {% if shoppingitem.exists %}
         {% for k in shoppingitem %}
-          <div class="col mb-2">
-            <div class="card">
-              <img class="card-img-top" src="{{k.head_image.url}}">
-              <div class="card-body">
-                <h3 class="card-title"><a href="{{k.get_absolute_url}}" style="color:teal;" >
+          <div class="card col mb-2 " style="background-color:snow;border:none;border-bottom : 2px solid gray">
+            <div class="card" style="border:none">
+               <img class="card-img-top" src="{{k.head_image.url}}">
+              <div class="card-body" style="background-color:snow">
+                <h3 class="card-title"><a href="{{k.get_absolute_url}}" style="color: rgb(0, 62, 62)" >
                             {{k.title}}
                         </a></h3>
                 <p class="card-text">price : {{k.price}}</p>
@@ -67,7 +65,7 @@
             <div class="card-body" >
                 {{ c.content }}
                 <a  style="color:teal;" href="{{c.get_absolute_url}}">
-                <span class="float-right"><i class="fa-solid fa-arrow-right"></i></span></a>
+                <span class="float-right"><i class="fa-solid fa-arrow-right" style="color: rgb(0, 62, 62)"></i></span></a>
             </div>
             <hr>
             {% endfor %}

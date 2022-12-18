@@ -12,8 +12,8 @@
                             <!-- Post title-->
                             <span>
                                 {% if user.is_authenticated and user == shoppingitem.author %}
-                                <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-sm float-right m-2" style="background-color:teal;color:white" >
-                                    <i class="fas fa-pen"></i> Edit Post
+                                <a href="/shoppingmall_main/update_post/{{shoppingitem.pk}}/" role="button" class="btn btn-sm float-right m-3" style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%" >
+                                    Edit Post
                                 </a>
                                 {% endif %}
                             </span>
@@ -24,7 +24,7 @@
                             <div class="text-muted fst-italic mb-2">Posted on {{shoppingitem.created_at | date:"Y-m-d h:m:s"}} by {{shoppingitem.m_company | upper}}</div>
                             <!-- Post categories-->
                             {% if shoppingitem.category %}
-                                <a class="badge  text-decoration-none"  style="background-color:teal;color:white" href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
+                                <a class="badge  text-decoration-none"  style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow"href="{{shoppingitem.category.get_absolute_url}}">{{shoppingitem.category}}</a>
                             {% else %}
                                 <a class="badge text-decoration-none " style="background-color:teal;color:white"  href="/shoppingmall_main/category/no_category/">미분류</a>
                             {% endif %}
@@ -55,12 +55,12 @@
 
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4">{{shoppingitem.information}}</p>
+                            <p class="fs-5 mb-4">{{shoppingitem.get_content_markdown | safe }}</p>
                             {% if shoppingitem.tags.exists %}
                                 <i class="fas fa-tag"></i>
                                 {% for t in shoppingitem.tags.iterator %}
-                                <span class="badge badge-light" style="color:white;background-color:teal;'">
-                                   <a href="{{t.get_absolute_url}}" style="color:white;">{{t}}</a>
+                                <span class="badge badge-light" style="color:rgb(0,62,62);background-color:snow;border:2px solid rgb(0,62,62)">
+                                   <a href="{{t.get_absolute_url}}" style="color:rgb(0,62,62);">{{t}}</a>
                                 </span>
                                 {% endfor %}
                             {% endif %}
@@ -71,19 +71,20 @@
                     </div>
                     <!-- Comments section-->
                     <div id="comment-area" class="mb-5">
-                        <div class="card " style="background-color:rgb(0, 62, 62);border-radius:10px; color:snow;">
+                        <div class="card " style="background-color:snow;border-radius:10px; color:rgb(0,62,62);">
                             <div class="card-body" >
                                 <!-- Comment form-->
                                 {% if user.is_authenticated %}
-                                <form class="mb-4" id="comment-form" method="POST" style="background-color:rgb(0, 62, 62);" action="{{shoppingitem.get_absolute_url}}new_comment/">
+                                <form class="mb-4" id="comment-form" method="POST" style="background-color:snow;" action="{{shoppingitem.get_absolute_url}}new_comment/">
                                     {% csrf_token %}
-                                    <div class="form-group" style="background-color:rgb(0, 62, 62);" >
+                                    <div class="form-group" style="background-color:snow;" >
                                         {{ comment_form | crispy }}
                                     </div>
-                                    <button type="submit" class="btn btn-light" style="background-color:snow;color:rgb(0, 62, 62);border:2px solid teal;">Submit</button>
+                                    <button type="submit" class="btn btn-light float-right" style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%">Submit</button>
+                                    <br>
                                 </form>
                                 {% else %}
-                                <a role="button" class="btn btn-light btn-block btn-sm m-2" style="color:teal;"href="#" data-toggle="modal" data-target="#loginModal">
+                                <a role="button" class="btn btn-light btn-block btn-sm m-2" style="color:rgb(0,62,62);"href="#" data-toggle="modal" data-target="#loginModal">
                                     Log in and leave a comment</a>
                                 {% endif %}
                                 {% if shoppingitem.comment_set.exists %}
@@ -111,7 +112,7 @@
                                                     <del>{{ comment | linebreaks }}</del>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn" style="background-color:teal;color:white;"data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn" style="background-color:rgb(0,62,62);color:white;"data-dismiss="modal">Cancel</button>
                                                     <a role="button" class="btn btn-danger" href="/shoppingmall_main/delete_comment/{{ comment.pk }}/">Delete</a>
                                                 </div>
                                                 </div>

@@ -1,13 +1,5 @@
           <!-- Search widget-->
-          <div class="card mb-4 mt-3">
-            <div class="card-header" style="background-color:teal ;color:snow"><i class="fa-solid fa-magnifying-glass"></i> Search</div>
-            <div class="card-body" >
-                <div class="input-group">
-                    <input id="search-input" class="form-control" type="text" placeholder="Enter search item..." aria-label="Enter search term..." aria-describedby="button-search" style="font-size:15px" />
-                    <button class="btn" style="background-color:teal;color:snow;font-size:15px" id="button-search" type="button" onclick="searchPost()">Go!</button>
-                </div>
-            </div>
-          </div>
+
         <script>
             function searchPost(){
                 searchValue = document.getElementById('search-input').value.trim();
@@ -26,18 +18,15 @@
             });
         </script>
         <!-- Categories widget-->
-        <div class="card mb-4" id='category-card'>
-            <div class="card-header" style="background-color : teal; color : snow">Categories</div>
-            <div class="card-body">
-                <div class="row">
+        <div class="dropdown nav-item mb-3" id='category-card'>
+            <a class="btn nav-link dropdown-toggle mt-3" id="navbarDropdownCateLink"href="#" role="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%">Categories</a>
 
-                        <ul class="list-unstyled mb-0" >
+                        <ul class="list-unstyled mb-0 dropdown-menu"  aria-labelledby="navbarDropdownCateLink" style="background-color:snow;border : 2px solid gray" >
                             {% for c in categories%}
-                            <li><a href="{{c.get_absolute_url}}" style="color : teal">{{c}} ({{c.shoppingitem_set.count}})</a></li>
+                            <li><a class="dropdown-item" href="{{c.get_absolute_url}}" style="color : black;background-color:snow" >{{c}} ({{c.shoppingitem_set.count}})</a></li>
                             {% endfor %}
-                            <li><a href="/shoppingmall_main/category/no_category/ " style="color : teal">미분류 ({{no_category_post_count}})</a></li>
+                            <li><a href="/shoppingmall_main/category/no_category/ " class="dropdown-item" style="color : black;background-color:snow" >미분류 ({{no_category_post_count}})</a></li>
                         </ul>
 
-                </div>
-            </div>
+
         </div>

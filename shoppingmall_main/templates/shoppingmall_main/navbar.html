@@ -2,6 +2,23 @@
 <head>
      <link href="{% static 'shoppingmall_main/css/style.css' %}"   rel="stylesheet" media="screen" >
 </head>
+<script>
+            function searchPost(){
+                searchValue = document.getElementById('search-input').value.trim();
+                if( searchValue.length >1){
+                    location.href = "/shoppingmall_main/search/"+searchValue+"/";
+                }
+                else{
+                    alert("검색어("+searchValue+")가 너무 짧습니다.");
+                }
+            };
+
+            document.getElementById('search-input').addEventListener('keyup',function(event){
+                if(event.key === 'Enter'){
+                    searchPost();
+                }
+            });
+        </script>
 
 
 {% load socialaccount %}
@@ -12,7 +29,7 @@
          style="background-color: snow;
          border-bottom:solid 3px teal">
     <div class="container">
-        <a class="navbar-brand " href="/">HoLiday</a>
+        <a class="navbar-brand " href="/" style="color: rgb(0, 62, 62)">HoLiday</a>
         <button class="navbar-toggler navbar-light " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" >
             <span class="navbar-toggler-icon" ></span>
         </button>
@@ -21,12 +38,25 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="/" >Home</a>
                 <a class="nav-link" href="/about_me/">AboutUs</a>
+
+
+
+
+
+
             </div>
         </div>
 
+        </input>
         <div class="collapse navbar-collapse  justify-content-end" id="navbarNavDropdown">
             <div class="navbar-nav">
-                <a class="nav-link" href="/shoppingmall_main/" >Items</a>
+                <input id="search-input" class="form-control" type="text"  aria-label="Enter search term..." aria-describedby="button-search" style="font-size:15px " />
+                <button class="ml-1"style="color:black ; font-size:15px ;border:none;background-color:snow" id="button-search" type="button" onclick="searchPost()" >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+
+                <a class="nav-link ml-2" href="/shoppingmall_main/" >Items</a>
 
 
               {% if user.is_authenticated %}

@@ -9,15 +9,16 @@
 }
 
 nav a{
-    color: teal;
+    color: rgb(0, 62, 62)
 }
 
 nav a:hover{
     color: rgb(0, 62, 62);
 }
 
+
 a {
-    color: teal;
+    color: rgb(0, 62, 62)
 }
 
 a:hover{

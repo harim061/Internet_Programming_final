@@ -25,6 +25,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('markdownx/', include('markdownx.urls')),
     path('',include('single_page.urls')),
     path('shoppingmall_main/',include('shoppingmall_main.urls')),
     path('accounts/', include('allauth.urls')),

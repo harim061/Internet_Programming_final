@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 import os
 # Create your models here.
 
@@ -51,7 +53,7 @@ class ShoppingItem(models.Model):
 
     title = models.CharField(max_length=50) # 상품 이름
 
-    information = models.TextField() # 상품 설명
+    information = MarkdownxField() # 상품 설명
 
     price = models.IntegerField() # 가격
     like_users = models.ManyToManyField(User,related_name='like_shopping',blank=True)
@@ -78,6 +80,9 @@ class ShoppingItem(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
             return 'https://dummyimage.com/50x50/ced4da/6c757d.jpg'
+
+    def get_content_markdown(self):
+        return markdown(self.information)
 
 class Comment(models.Model):
     shoppingitem = models.ForeignKey(ShoppingItem, on_delete=models.CASCADE)

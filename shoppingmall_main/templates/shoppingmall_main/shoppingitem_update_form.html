@@ -16,7 +16,9 @@
                 <label for="id_tags">Tags:</label>
                 <input id="id_tags" type="text" name="tags_str" value="{{tags_str_default}}" class="textinput textInput form-control">
             </div>
-        <button type="submit" class="btn float-right m-3" style="background-color:teal;color:snow;">Submit</button>
+        <button type="submit" class="btn float-right m-3"style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%">Submit</button>
     </form>
+
+    {{ form.media }}
 </div>
 {% endblock %}

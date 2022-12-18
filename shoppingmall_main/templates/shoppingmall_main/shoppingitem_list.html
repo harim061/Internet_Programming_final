@@ -4,21 +4,21 @@
 <div class="container mt-3">
         {% if user.is_authenticated %}
             {% if user.is_superuser or user.is_staff %}
-                <a href="/shoppingmall_main/create_post" role="button" class="btn btn-sm float-right m-1" style="background-color: teal;color: white;">
-                    <i class="fas"></i> New shopping
+                <a href="/shoppingmall_main/create_post" role="button" class="btn btn-sm float-right m-1" style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%">
+                    New shopping
                 </a>
             {% endif %}
         {% endif %}
 
-          <h2 style="color : rgb(0, 62, 62)">HoLiday Shopping
+          <h2 style="color : rgb(0,62,62)">HoLiday Shopping
               {% if search_info %}
-              <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{search_info}}</span>
+              - <span class="badge rounded-pill" style="color:black ; bortder:3px solid rgb(0,62,62);background-color:snow">{{search_info}}</span>
               {% endif %}
               {% if category %}
-              - <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ category }}</span>
+              - <span class="badge rounded-pill badge-light" style="color:black ; border:3px solid rgb(0,62,62);background-color:snow">{{ category }}</span>
               {% endif %}
               {% if company %}
-              - <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ company }}</span>
+              - <span class="badge rounded-pill badge-light" style="color:black ; border:3px solid rgb(0,62,62);background-color:snow">{{ company }}</span>
               <div class="container mt-3">
                 <span class="mb-3">contact : {{company.email}}</span><br>
                 <span class="mb-3">address : {{company.address}}</span><br>
@@ -27,42 +27,44 @@
               {% endif %}
               {% if tag %}
                - <i class="fas fa-tags"></i>
-              <span class="badge rounded-pill badge-light" style="color:teal ; border:3px solid teal">{{ tag }}</span>
+              <span class="badge rounded-pill badge-light" style="color:black ; border:3px solid rgb(0,62,62);background-color:snow">{{ tag }}</span>
               {% endif %}
           </h2></div>
+
           <!-- Featured blog post-->
+<div class="row row-cols-1 row-cols-md-2 g-4 mr-3" >
             {% if shoppingitem_list.exists %}
             {% for p in shoppingitem_list %}
-          <div class="card mb-4" id="post-{{p.pk}}">
+          <div class="card col mb-2" id="post-{{p.pk}}" style="border: none;background-color:snow">
               {% if p.head_image%}
             <img class="card-img-top" src="{{p.head_image.url}}" alt="{{p}}의 head_image " />
               {% else %}
-                            <img class="img-fluid rounded" src="https://picsum.photos/seed/{{p.pk}}/800/200"/>
+                <img class="img-fluid rounded" src="https://picsum.photos/seed/{{p.pk}}/800/200"/>
               {% endif %}
-            <div class="card-body" style="background-color : rgb(0, 62, 62);">
+            <div class="card-body" style="background-color : snow">
                 {% if p.category %}
-                <span class="badge badge-light float-right"><a href="{{p.category.get_absolute_url}}" style="color : teal">{{p.category}}</a></span>
+                <span class="badge badge-light float-right" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow"><a style="color:snow"href="{{p.category.get_absolute_url}}" >{{p.category}}</a></span>
                 {% else %}
-                    <span class="badge badge-light float-right"><a href="/shoppingmall_main/category/no_category/" style="color : teal">미분류</a></span>
+                    <span class="badge badge-light float-right"><a href="/shoppingmall_main/category/no_category/" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow">미분류</a></span>
                 {% endif %}
-                <h2 class="card-title" style="color:white">{{p.title | upper}}</h2>
-                <p class="card-text" style="color:white">{{p.information | truncatechars:20}}</p>
+                <h2 class="card-title" style="color:black">{{p.title | upper}}</h2>
+                <p class="card-text" style="color:black">{{p.get_content_markdown | truncatechars_html:20 | safe }}</p>
                 {% if p.tags.exists %}
-                    <i class="fas fa-tags "style="color:white;"></i>
+                    <i class="fas fa-tags "style="color:rgb(0,62,62) ;"></i>
                     {% for t in p.tags.iterator %}
-                    <span class="badge badge-pill badge-light">
-                        <a href="{{t.get_absolute_url}}" style="color : teal;">{{t}}</a>
+                    <span class="badge badge-pill badge-light" style="color:rgb(0,62,62);background-color:snow;border:2px solid rgb(0,62,62)">
+                        <a href="{{t.get_absolute_url}}" style="color:rgb(0,62,62) ;">{{t}}</a>
                     </span>
                     {% endfor %}
                 <br><br>
                 {% endif %}
-                <a class="btn btn-light" style="color:teal;"href="{{p.get_absolute_url}}">More Info </a>
+                <a class="btn btn-light float-right" style="background-color : snow; border: 2px solid rgb(0,62,62);border-radius:50%"href="{{p.get_absolute_url}}">More Info </a>
             </div>
-              <div class="card-footer" style="background-color : white">
+              <div class="card-footer" style="background-color : rgb(0,62,62)">
                   <div class="small text-muted">{{p.created_at | date:"Y-m-d h:m:s"}}</div>
-                  <a href="{{p.m_company.get_absolute_url}}" style="color:teal">{{p.m_company | upper}}</a>
+                  <a href="{{p.m_company.get_absolute_url}}" style="color:snow">{{p.m_company | upper}}</a>
 
-                  <span class="float-right">
+                  <span class="float-right" style="color:snow">
                       <i class="fa-solid fa-heart" style="color : red"></i>
                         {{p.like_users.count}}명
                   </span>
@@ -72,21 +74,23 @@
 
             {% endfor %}
             {% else %}
+
             <h5>아무 게시물이 없습니다.</h5>
 
             {% endif %}
-
+</div>
            {% if is_paginated %}
+
     <nav aria-label="Pagination">
     <hr class="my-0" />
         <ul class="pagination justify-content-center my-4">
             {% if page_obj.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true" style="color:teal;">Newer</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true" style="color:rgb(0,62,62);">Newer</a></li>
             {% else %}
             <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
             {% endif %}
             {% if page_obj.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}" style="color:teal;">Older</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}" style="color:rgb(0,62,62);">Older</a></li>
             {% else %}
             <li class="page-item disabled"><a class="page-link" href="#!">Older</a></li>
             {% endif %}

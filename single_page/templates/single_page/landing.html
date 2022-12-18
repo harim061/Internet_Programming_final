@@ -44,20 +44,20 @@
 
         <!--welcome to holiday 부분-->
             <div class="col-lg-5">
-                <h1 class="font-weight-light" style="color:teal ;">Welcome to HoLiday</h1>
+                <h1 class="font-weight-light" style=" color:rgb(0, 62, 62) ;">Welcome to HoLiday</h1>
                 <p>We give you a nice holiday as a gift. Choose a happy holiday from our shoppingmall.</p>
-                <a href="/shoppingmall_main/" role="button" class="btn"  style="background-color: teal;color: white;">
+                <a id="go-shopping" href="/shoppingmall_main/" role="button" class="btn"  style="background-color : snow; border: 2px rgb(0,62,62) solid;border-radius:50%">
                Go Shopping</a>
             </div>
         </div>
 
         <!-- Content Row-->
-        <h2 style="color : teal">Recent Item</h2>
+        <h2 style="color: rgb(0, 62, 62)">Recent Item</h2>
         <div class="row gx-4 gx-lg-5">
             {% for post in recent_posts %}
-            <div class="col-md-4 mb-5">
+            <div class=" card col-md-4 mb-5" style="background-color:snow;border:none;border-bottom : 2px solid gray">
 
-                <div class="card">
+                <div class="card" style="background-color:snow;border:none">
                     <div class="card-body">
                         <h3 class="card-title"><a href="{{post.get_absolute_url}}" >
                             {{post.title}}

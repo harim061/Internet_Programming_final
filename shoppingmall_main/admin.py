@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import ShoppingItem,Category,ColorTag,Company,Comment
-
+from markdownx.admin import MarkdownxModelAdmin
 # Register your models here.
 
-admin.site.register(ShoppingItem)
+admin.site.register(ShoppingItem,MarkdownxModelAdmin)
 
 class CompanyAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
