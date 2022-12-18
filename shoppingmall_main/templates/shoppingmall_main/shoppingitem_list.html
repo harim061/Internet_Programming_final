@@ -45,7 +45,7 @@
                 {% if p.category %}
                 <span class="badge badge-light float-right" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow"><a style="color:snow"href="{{p.category.get_absolute_url}}" >{{p.category}}</a></span>
                 {% else %}
-                    <span class="badge badge-light float-right"><a href="/shoppingmall_main/category/no_category/" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow">미분류</a></span>
+                    <span class="badge badge-light float-right" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow"><a href="/shoppingmall_main/category/no_category/" style="background-color : rgb(0,62,62); border: 2px solid rgb(0,62,62); color:snow">미분류</a></span>
                 {% endif %}
                 <h2 class="card-title" style="color:black">{{p.title | upper}}</h2>
                 <p class="card-text" style="color:black">{{p.get_content_markdown | truncatechars_html:20 | safe }}</p>
