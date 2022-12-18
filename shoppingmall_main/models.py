@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdown
+from django import forms
+
 import os
 # Create your models here.
 
@@ -84,13 +86,23 @@ class ShoppingItem(models.Model):
     def get_content_markdown(self):
         return markdown(self.information)
 
+class SubComment(models.Model):
+
+    author = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,related_name='subcomment')
+    content = models.TextField(null=False)
+    create_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content
+
+
 class Comment(models.Model):
     shoppingitem = models.ForeignKey(ShoppingItem, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now = True)
-
+    subcomment = models.ManyToManyField(SubComment, blank=True)
     def __str__(self):
         return f'{self.author} : {self.content}'
 
@@ -102,3 +114,4 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
             return 'https://dummyimage.com/50x50/ced4da/6c757d.jpg'
+

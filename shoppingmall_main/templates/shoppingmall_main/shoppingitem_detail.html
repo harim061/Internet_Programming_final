@@ -1,5 +1,6 @@
 {% extends 'shoppingmall_main/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block head_title %}
     {{shoppingitem.title}}
 {% endblock %}
@@ -129,9 +130,41 @@
                                             </p>
                                         {% endif %}
                                     </div>
+
                                 </div>
+
+                                <!--     대댓글 하나하나를 for문으로 분리시켜서 하나씩 뜨게 함 -->
+                            {% for recom in comment.subcomment.iterator %}
+                            <small class="mt-0">
+                                <!-- 대댓글 작성자 / 대댓글 생성 시간 -->
+                                ㄴ {{ recom.content }} by {{ recom.author }} : {{ recom.create_at}}
+                                <br>
+                            </small>
+
+                            {% endfor %}
+
+                                <!--     로그인 한 상태에서만 대댓글 클릭 가능 -->
+                            {% if request.user.is_authenticated %}
+                                <!-- reply comment -->
+                                <a type="button" class="btn btn-light btn-sm">
+                                    <i class="fas fa-reply"> Reply</i>
+                                </a>
+                            {% endif %}
+                            <!-- recomment_Form -->
+                            <form id="recomment-form" method="post" action="/shoppingmall_main/subcomment/{{comment.pk}}/">
+                                {% csrf_token %}
+                                {{  subcomment_form | crispy }}
+                                <input type="hidden" name="comment" value="{{ comment.pk }}">
+                                <button  type="submit" class="btn btn-secondary btn-sm float-right" >
+                                    작성 완료
+                                </button>
+                            </form>
+
+
                                 {% endfor %}
+
                                 {% endif %}
+
                             </div>
                         </div>
                     </div>

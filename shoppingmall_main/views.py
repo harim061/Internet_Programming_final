@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .models import ShoppingItem,Category,ColorTag,Comment,Company
+from .models import ShoppingItem,Category,ColorTag,Comment,Company,SubComment
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
@@ -7,6 +8,8 @@ from django.utils.text import slugify
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django import forms
+
 import os
 # Create your views here.
 
@@ -31,6 +34,7 @@ class ShoppingItemDetail(DetailView):
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = ShoppingItem.objects.filter(category=None).count
         context['comment_form'] = CommentForm
+        context['subcomment_form'] = SubCommentForm
         return context
 
 class ShoppingItemSearch(ShoppingItemList):
@@ -223,19 +227,25 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 import requests
-class KakaoSignInView(View):
-    def get(self, request):
-        app_key = 'f6a0540558be646680eecd611720c12b'
-        redirect_uri = 'http://localhost:8000/accounts/signin/kakao/callback'
-        kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?response_type=code'
 
-        return redirect(
-            f'{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}'
-        )
 
-def kakao_login(request):
-    app_rest_api_key = os.environ.get("f6a0540558be646680eecd611720c12b")
-    redirect_uri = "http://127.0.0.1:8000/accounts/kakao/login/callback"
-    return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={'app_rest_api_key'}&redirect_uri={'redirect_uri '}&response_type=code"
-    )
+class SubCommentForm(forms.ModelForm):
+    class Meta:
+        model = SubComment
+        fields = ('content',)
+
+def new_subcomment(request,pk):
+    if request.user.is_authenticated:
+        shoppingitem = get_object_or_404(ShoppingItem,pk=pk)
+
+        if request.method == 'POST':
+            subcomment_form = SubCommentForm(request.POST)
+            if subcomment_form.is_valid():
+                subcomment = subcomment_form.save(commit=False)
+                subcomment.author = request.user
+                subcomment.save()
+            return redirect(shoppingitem.get_absolute_url())
+        else:
+            return redirect(shoppingitem.get_absolute_url())
+    else:
+        raise PermissionDenied
